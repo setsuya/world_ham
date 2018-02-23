@@ -1,0 +1,95 @@
+.dark_body {
+	background-color: #262626;
+}
+
+#overlay {
+	z-index: 10000;
+}
+
+#overlay p:nth-of-type(1) {
+	font-size: 72px;
+	line-height: 1;
+	text-shadow: -1px -1px 0 #333;
+}
+
+#overlay p:nth-of-type(1) > span {
+	font-size: 12px;
+	text-shadow: -1px -1px 0 #333;
+	font-style: italic;
+}
+
+#overlay p:nth-of-type(2) {
+	font-size: 24px;
+	text-shadow: -1px -1px 0 #333;
+	font-style: italic;
+}
+
+#menu {
+	box-sizing: border-box;
+	display: block;
+	top: 0;
+	right: 100%;
+	z-index: 9999;
+}
+
+.menu_show {
+	box-shadow: 2px 0 2px #333;
+}
+
+#menu_button {
+	position: absolute;
+	left: 100%;
+	top: 0;
+}
+
+#title_bar {
+	margin-right: 0;
+	margin-left: auto;
+	white-space: nowrap;
+	overflow: hidden;
+	box-shadow: 0 2px 2px #333;
+}
+
+#sets_list {
+	overflow: auto;
+	background-color: #4c555d;
+	box-shadow: 2px 2px 2px #333 inset;
+}
+
+.saved_item {
+	cursor: pointer;
+}
+
+.skill_item {
+	border: 1px solid #999;
+	background-color: #444;
+	border-radius: 5px;
+	box-shadow: 1px 1px 1px #000 inset, 1px 1px 1px #333;
+}
+
+.skill_lvl {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border-radius: 3px;
+	border-top: 1px solid #000;
+	border-left: 1px solid #000;
+	border-bottom: 1px solid #666;
+	border-right: 1px solid #666;
+	margin: 2px;
+	background-color: #333;
+}
+
+.selected_lvl {
+	background-color: #c44;
+	border-top: 1px solid #f77;
+	border-left: 1px solid #f77;
+	border-bottom: 1px solid #911;
+	border-right: 1px solid #911;
+}
+
+#credits {
+	font-size: 12px;
+	bottom: 0;
+	text-shadow: 1px 1px 0 #333;
+}

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>World H.A.M.</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="World H.A.M." />
+		<meta property="og:description" content="Create and share your own mixed armor sets in Monster Hunter World." />
+		<meta property="og:url" content="https://setsuya.github.io/world_ham/" />
+		<meta property="og:image" content="https://setsuya.github.io/world_ham/img/share_banner.png" />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<link rel="icon" type="image/png" sizes="32x32" href="img/icon.png">
+		<link rel="manifest" href="manifest.json">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link href="css/styles.css" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+		<script type="text/JavaScript" src="js/armor.js"></script>
+		<script type="text/JavaScript" src="js/decos.js"></script>
+		<script type="text/JavaScript" src="js/charms.js"></script>
+		<script type="text/JavaScript" src="js/skills.js"></script>
+		<script type="text/JavaScript" src="js/scripts.js"></script>
+	</head>
+	<body class="dark_body">
+		<div id="overlay" class="position-fixed w-100 h-100 bg-secondary">
+			<div class="row h-100 align-items-center text-center text-light">
+				<div class="col">
+					<p>World H.A.M.<span class="d-block">(Hunting Armor Mixer)</span></p>
+					<p>Loading...</p>
+				</div>
+			</div>
+		</div>
+		<div id="menu" class="col-8 col-md-3 bg-secondary text-light sticky-top navbar-dark h-100 position-fixed">
+			<div id="menu_button" class="bg-secondary p-1">
+				<input type="button" class="position-absolute navbar-toggler navbar-toggler-icon bg-secondary border-0" onclick="toggleMenu()" />
+			</div>
+			<div class="row py-1">
+				<div class="col">Saved sets:</div>
+			</div>
+			<div id="sets_list" class="col h-75 py-1"></div>
+			<div id="options" class="col mt-4 p-0">
+				<div class="btn-group btn-block">
+					<input type="button" id="light_mode" class="btn btn-dark btn-sm w-50" value="Light mode" onclick="toggleColor(this)" />
+					<input type="button" id="dark_mode" class="btn btn-warning btn-sm w-50" value="Dark mode" onclick="toggleColor(this)" />
+				</div>
+			</div>
+			<div id="credits" class="row py-1 position-absolute w-100">
+				<div class="col text-center">Made with &hearts; by <a href="https://www.reddit.com/user/Setsuya_/" target="_blank" class="text-danger">Setsuya_</a>.<br />Check me out on <a href="https://github.com/setsuya" target="_blank" class="text-danger">Github</a>!</div>
+			</div>
+		</div>
+		<div id="title_bar" class="navbar sticky-top bg-secondary text-light pl-5"><h5 class="m-0">World H.A.M.</h5></div>
+		<div class="container">
+			<div class="row justify-content-center align-items-start">
+				<div id="armor_items" class="col-12 col-md-5">
+					<div class="row justify-content-center align-items-start py-1">
+						<input type="hidden" id="save_id" value="" />
+						<div class="col">
+							<div class="row py-1 align-items-center">
+								<div class="col-2 p-0 text-right text-light">WPN:</div>
+								<div id="weapon_list" class="col-10 input-group">
+									<select class="form-control form-control-sm" data-wpn-slot="0" onchange="checkSlots(this)"><option data-id="ff" data-slots="">No slot</option><option data-id="1" data-slots="[1]">Level 1</option><option data-id="2" data-slots="[2]">Level 2</option><option data-id="3" data-slots="[3]">Level 3</option></select>
+									<select class="form-control form-control-sm" data-wpn-slot="1" onchange="checkSlots(this)"><option data-id="ff" data-slots="">No slot</option><option data-id="1" data-slots="[1]">Level 1</option><option data-id="2" data-slots="[2]">Level 2</option><option data-id="3" data-slots="[3]">Level 3</option></select>
+									<select class="form-control form-control-sm" data-wpn-slot="2" onchange="checkSlots(this)"><option data-id="ff" data-slots="">No slot</option><option data-id="1" data-slots="[1]">Level 1</option><option data-id="2" data-slots="[2]">Level 2</option><option data-id="3" data-slots="[3]">Level 3</option></select>
+								</div>
+								<div class="slot_list col-10 offset-2"><div id="wpn_slot_0"></div><div id="wpn_slot_1"></div><div id="wpn_slot_2"></div></div>
+							</div>
+							<div class="row py-1 align-items-center">
+								<div class="col-2 p-0 text-right text-light">Head:</div>
+								<div class="col-10">
+									<select id="head_list" class="form-control form-control-sm" onchange="checkSlots(this)"><option>Loading...</option></select>
+								</div>
+								<div class="slot_list col-10 offset-2"></div>
+							</div>
+							<div class="row py-1 align-items-center">
+								<div class="col-2 p-0 text-right text-light">Chest:</div>
+								<div class="col-10">
+									<select id="chest_list" class="form-control form-control-sm" onchange="checkSlots(this)"><option>Loading...</option></select>
+								</div>
+								<div class="slot_list col-10 offset-2"></div>
+							</div>
+							<div class="row py-1 align-items-center">
+								<div class="col-2 p-0 text-right text-light">Arms:</div>
+								<div class="col-10">
+									<select id="arms_list" class="form-control form-control-sm" onchange="checkSlots(this)"><option>Loading...</option></select>
+								</div>
+								<div class="slot_list col-10 offset-2"></div>
+							</div>
+							<div class="row py-1 align-items-center">
+								<div class="col-2 p-0 text-right text-light">Waist:</div>
+								<div class="col-10">
+									<select id="waist_list" class="form-control form-control-sm" onchange="checkSlots(this)"><option>Loading...</option></select>
+								</div>
+								<div class="slot_list col-10 offset-2"></div>
+							</div>
+							<div class="row py-1 align-items-center">
+								<div class="col-2 p-0 text-right text-light">Legs:</div>
+								<div class="col-10">
+									<select id="legs_list" class="form-control form-control-sm" onchange="checkSlots(this)"><option>Loading...</option></select>
+								</div>
+								<div class="slot_list col-10 offset-2"></div>
+							</div>
+							<div class="row py-1 align-items-center">
+								<div class="col-2 p-0 text-right text-light">Charm:</div>
+								<div class="col-10">
+									<select id="charm_list" class="form-control form-control-sm" onchange="buildSet()"><option>Loading...</option></select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<hr class="bg-secondary" />
+								</div>
+							</div>
+							<div class="row py-1">
+								<div class="col input-group">
+									<input type="text" id="set_name" class="form-control form-control-sm" placeholder="Set name" />
+									<div class="input-group-append">
+										<input type="button" id="save_btn" class="btn btn-info btn-sm btn-block" value="Save set" onclick="saveSet()" />
+									</div>
+								</div>
+							</div>
+							<div class="row py-1">
+								<div class="col-6">
+									<input type="button" id="share_btn" class="btn btn-info btn-sm btn-block" value="Copy share link" data-clipboard-text="" />
+								</div>
+								<div class="col-6">
+									<input type="button" id="reset_btn" class="btn btn-info btn-sm btn-block" value="New set" onclick="newSet()" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-11 col-md-4">
+					<div class="row justify-content-center align-items-center py-1">
+						<div id="skills" class="col"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
