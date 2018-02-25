@@ -85,5 +85,16 @@ decorations = [
 	{"level":1,"skills":[{"id":"104","level":1}]}, 
 	{"level":2,"skills":[{"id":"105","level":1}]}, 
 	{"level":1,"skills":[{"id":"106","level":1}]}, 
-	{"level":2,"skills":[{"id":"107","level":1}]}
+	{"level":2,"skills":[{"id":"107","level":1}]}, 
+	{"level":3,"skills":[{"id":"108","level":1}]}, 
+	{"level":2,"skills":[{"id":"109","level":1}]}, 
+	{"level":3,"skills":[{"id":"110","level":1}]}, 
+	{"level":2,"skills":[{"id":"111","level":1}]}, 
+	{"level":2,"skills":[{"id":"112","level":1}]}, 
+	{"level":2,"skills":[{"id":"113","level":1}]}, 
+	{"level":3,"skills":[{"id":"114","level":1}]}, 
+	{"level":3,"skills":[{"id":"115","level":1}]}, 
+	{"level":2,"skills":[{"id":"116","level":1}]}, 
+	{"level":3,"skills":[{"id":"117","level":1}]}, 
+	{"level":2,"skills":[{"id":"127","level":1}]}
 ];
