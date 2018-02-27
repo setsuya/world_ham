@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	loadSkills();
 	loadPieces();
 	savedSets();
 
@@ -68,6 +69,8 @@ function savedSets(){
 		}else{
 			$("#sets_list").html("<div class=\"row py-1 px-2 text-center h-100 align-items-center text-secondary\"><div class=\"col font-italic\" style=\"text-shadow: 1px 1px 0 #111;\">No saved sets.</div></div>");
 		}
+	}else{
+		$("#sets_list").html("<div class=\"row py-1 px-2 text-center h-100 align-items-center text-secondary\"><div class=\"col font-italic\" style=\"text-shadow: 1px 1px 0 #111;\">No saved sets.</div></div>");
 	}
 }
 
@@ -115,6 +118,16 @@ function parseSet(custom_set_string, set_id){
 	}
 
 	buildSet();
+}
+
+function loadSkills(){
+	all_skills = "<option>--- Search skills ---</option>";
+
+	for(item in skills){
+		all_skills += "<option data-id=\"" + item + "\">" + skills[item].name + "</option>";
+	}
+
+	$("#armor_search > select").html(all_skills);
 }
 
 function loadPieces(){
@@ -328,14 +341,50 @@ function checkSlots(armor_piece){
 	buildSet();
 }
 
+function searchArmor(){
+	if($("#armor_search > select option:selected").attr("data-id")){
+		search_id = $("#armor_search > select option:selected").attr("data-id");
+		search_pieces = [];
+		search_result = "";
+
+		for(item in armor){
+			for(skill in armor[item].skills){
+				if(armor[item].skills[skill].id == search_id){
+					search_pieces.push(item);
+					break;
+				}
+			}
+		}
+
+		for(item in search_pieces){
+			search_result += "<option data-id=\"" + search_pieces[item] + "\">" + armor[search_pieces[item]].name + "</option>"
+		}
+
+		if(search_result != ""){
+			search_result = "<select class=\"form-control form-control-sm col-10\"><option>--- " + search_pieces.length + " results found. ---</option>" + search_result + "</select><div class=\"input-group-append col-2 p-0\"><div class=\"btn btn-info btn-sm btn-block px-3\" role=\"button\" onclick=\"addFromSearch()\"><div>&plus;</div></div></div>";
+			$("#search_results").html(search_result).addClass("pt-2");
+		}else{
+			search_result = "<select class=\"form-control form-control-sm col-10\"><option>--- No results found. ---</option></select><div class=\"input-group-append col-2 p-0\"><div class=\"btn btn-info btn-sm btn-block disabled px-3\" role=\"button\"><div>&plus;</div></div></div>";
+			$("#search_results").html(search_result).addClass("pt-2");
+		}
+	}
+}
+
+function addFromSearch(){
+	if($("#search_results > select option:selected").attr("data-id")){
+		add_piece_id = $("#search_results > select option:selected").attr("data-id");
+		add_piece = armor[add_piece_id];
+
+		$("#" + add_piece.part + "_list option[data-id='" + add_piece_id + "']")[0].selected = true;
+		$("#" + add_piece.part + "_list option[data-id='" + add_piece_id + "']").trigger("change");
+	}
+}
+
 function buildSet(){
 	set_skills = [];
 	final_skills = {};
 	armor_list = [];
 
-	//console.log($("#weapon_list > select:eq(0) > option:selected").attr("data-id"));
-	//console.log($("#weapon_list > select:eq(1) > option:selected").attr("data-id"));
-	//console.log($("#weapon_list > select:eq(2) > option:selected").attr("data-id"));
 	armor_list.push($("#weapon_list > select:eq(0) > option:selected").attr("data-id"));
 	armor_list.push($("#weapon_list > select:eq(1) > option:selected").attr("data-id"));
 	armor_list.push($("#weapon_list > select:eq(2) > option:selected").attr("data-id"));

@@ -61,6 +61,20 @@
 						<input type="hidden" id="save_id" value="" />
 						<div class="col">
 							<div class="row py-1 align-items-center">
+								<div id="armor_search" class="col-12 input-group">
+									<select class="form-control form-control-sm col-10"><option data-id="ff">Loading...</option></select>
+									<div class="input-group-append col-2 p-0">
+										<div class="btn btn-info btn-sm btn-block px-3" role="button" onclick="searchArmor()"><div style="transform: rotate(-45deg);">&#9906;</div></div>
+									</div>
+								</div>
+								<div id="search_results" class="col-12 input-group"></div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<hr class="bg-secondary" />
+								</div>
+							</div>
+							<div class="row py-1 align-items-center">
 								<div class="col-2 p-0 text-right text-light">WPN:</div>
 								<div id="weapon_list" class="col-10 input-group">
 									<select class="form-control form-control-sm" data-wpn-slot="0" onchange="checkSlots(this)"><option data-id="ff" data-slots="">No slot</option><option data-id="1" data-slots="[1]">Level 1</option><option data-id="2" data-slots="[2]">Level 2</option><option data-id="3" data-slots="[3]">Level 3</option></select>
