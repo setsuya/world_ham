@@ -380,7 +380,7 @@ function addFromSearch(){
 	}
 }
 
-function buildSet(){
+/*function buildSet(){
 	set_skills = [];
 	final_skills = {};
 	armor_list = [];
@@ -464,6 +464,105 @@ function createSkillList(skill_list){
 	}
 
 	$("#skills").html(skills_result);
+}*/
+
+function buildSet(){
+	set_skills = [];
+	final_skills = {};
+	armor_list = [];
+
+	armor_list.push($("#weapon_list > select:eq(0) > option:selected").attr("data-id"));
+	armor_list.push($("#weapon_list > select:eq(1) > option:selected").attr("data-id"));
+	armor_list.push($("#weapon_list > select:eq(2) > option:selected").attr("data-id"));
+	armor_list.push($("#head_list > option:selected").attr("data-id"));
+	armor_list.push($("#chest_list > option:selected").attr("data-id"));
+	armor_list.push($("#arms_list > option:selected").attr("data-id"));
+	armor_list.push($("#waist_list > option:selected").attr("data-id"));
+	armor_list.push($("#legs_list > option:selected").attr("data-id"));
+	armor_list.push($("#charm_list > option:selected").attr("data-id"));
+
+	if($("#head_list > option:selected").attr("data-skills")){
+		set_skills.push(JSON.parse("[" + $("#head_list > option:selected").attr("data-skills") + ",\"head\"]"));
+	}
+
+	if($("#chest_list > option:selected").attr("data-skills")){
+		set_skills.push(JSON.parse("[" + $("#chest_list > option:selected").attr("data-skills") + ",\"chest\"]"));
+	}
+
+	if($("#arms_list > option:selected").attr("data-skills")){
+		set_skills.push(JSON.parse("[" + $("#arms_list > option:selected").attr("data-skills") + ",\"arms\"]"));
+	}
+
+	if($("#waist_list > option:selected").attr("data-skills")){
+		set_skills.push(JSON.parse("[" + $("#waist_list > option:selected").attr("data-skills") + ",\"waist\"]"));
+	}
+
+	if($("#legs_list > option:selected").attr("data-skills")){
+		set_skills.push(JSON.parse("[" + $("#legs_list > option:selected").attr("data-skills") + ",\"legs\"]"));
+	}
+
+	if($("#charm_list > option:selected").attr("data-skills")){
+		set_skills.push(JSON.parse("[" + $("#charm_list > option:selected").attr("data-skills") + ",\"charm\"]"));
+	}
+
+	$(".armor_slot").each(function(){
+		if($(this).find("option:selected").attr("data-skills")){
+			set_skills.push(JSON.parse("[" + $(this).find("option:selected").attr("data-skills") + ",\"deco\"]"));
+		}
+
+		armor_list.push($(this).find("option:selected").attr("data-id"));
+	});
+
+	for(item in set_skills){
+		one_piece = set_skills[item];
+
+		for(skill_item in one_piece){
+			if(skill_item < (one_piece.length - 1)){
+				if(final_skills[one_piece[skill_item][0]]){
+					final_skills[one_piece[skill_item][0]].level += one_piece[skill_item][1];
+					final_skills[one_piece[skill_item][0]].pieces[one_piece[one_piece.length - 1]] += one_piece[skill_item][1];
+				}else{
+					final_skills[one_piece[skill_item][0]] = {"level": one_piece[skill_item][1], "pieces":{"head": 0, "chest": 0, "arms": 0, "waist": 0, "legs": 0, "charm": 0, "deco": 0}};
+					final_skills[one_piece[skill_item][0]].pieces[one_piece[one_piece.length - 1]] += one_piece[skill_item][1];
+				}
+			}
+		}
+	}
+
+	createSkillList(final_skills);
+	$("#share_btn").attr("data-clipboard-text", (window.location.origin + window.location.pathname) + "?" + btoa(armor_list));
+	new Clipboard("#share_btn");
+}
+
+function createSkillList(skill_list){
+	skills_result = "";
+
+	for(skill in skill_list){
+		skill_level = "";
+		skill_points = "";
+
+		for(i = 0; i < skill_list[skill].level; i++){
+			if(i < skills[skill].max_level){
+				skill_level += "<span class=\"skill_lvl selected_lvl\"></span>";
+			}
+		}
+
+		for(i = 0; i < (skills[skill].max_level - skill_list[skill].level); i++){
+			skill_level += "<span class=\"skill_lvl\"></span>";
+		}
+
+		for(piece in skill_list[skill].pieces){
+			if(skill_list[skill].pieces[piece] > 0){
+				skill_points += "<img src=\"img/" + piece + ".png\" class=\"armor_icon ml-2 mr-1\" /><span class=\"text-warning\">" + skill_list[skill].pieces[piece] + "</span>";
+			}else{
+				skill_points += "<img src=\"img/" + piece + "_off.png\" class=\"armor_icon ml-2 mr-1\" /><span class=\"text-muted\">" + skill_list[skill].pieces[piece] + "</span>";
+			}
+		}
+
+		skills_result += "<div class=\"row py-1\"><div class=\"skill_item col\"><div class=\"row px-2 py-1 text-light\">" + skills[skill].name + "</div><div class=\"row px-2 pt-0 pb-1\">" + skill_level + "</div><div id=\"armor_levels\" class=\"row px-2 pt-0 pb-1 align-items-center justify-content-end text-warning\">" + skill_points + "</div></div></div>";
+	}
+
+	$("#skills").html(skills_result);
 }
 
 function saveSet(){
@@ -506,6 +605,15 @@ function deleteSet(save_id){
 function newSet(){
 	$("#save_id").val("");
 	$("#set_name").val("");
+
+	$("#weapon_list > select:eq(0) option:eq(0)")[0].selected = true;
+	$("#weapon_list > select:eq(0) option:eq(0)").trigger("change");
+
+	$("#weapon_list > select:eq(1) option:eq(0)")[0].selected = true;
+	$("#weapon_list > select:eq(1) option:eq(0)").trigger("change");
+
+	$("#weapon_list > select:eq(2) option:eq(0)")[0].selected = true;
+	$("#weapon_list > select:eq(2) option:eq(0)").trigger("change");
 
 	$("#head_list option:eq(0)")[0].selected = true;
 	$("#head_list option:eq(0)").trigger("change");

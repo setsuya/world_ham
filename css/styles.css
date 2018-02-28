@@ -88,6 +88,16 @@
 	border-right: 1px solid #911;
 }
 
+#armor_levels {
+	text-shadow: 1px 1px 0 #000;
+	font-size: 12px;
+}
+
+.armor_icon {
+	width: 24px;
+	height: 24px;
+}
+
 #credits {
 	font-size: 12px;
 	bottom: 0;
