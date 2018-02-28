@@ -559,7 +559,7 @@ function createSkillList(skill_list){
 			}
 		}
 
-		skills_result += "<div class=\"row py-1\"><div class=\"skill_item col\"><div class=\"row px-2 py-1 text-light\">" + skills[skill].name + "</div><div class=\"row px-2 pt-0 pb-1\">" + skill_level + "</div><div id=\"armor_levels\" class=\"row px-2 pt-0 pb-1 align-items-center justify-content-end text-warning\">" + skill_points + "</div></div></div>";
+		skills_result += "<div class=\"row py-1\"><div class=\"skill_item col\"><div class=\"row px-2 py-1 text-light\">" + skills[skill].name + "</div><div class=\"row px-2 pt-0 pb-1\">" + skill_level + "</div><div class=\"row\"><div class=\"col\"><hr class=\"bg-light mt-1 mb-2\" /></div></div><div id=\"armor_levels\" class=\"row px-2 pt-0 pb-1 align-items-center justify-content-end text-warning\">" + skill_points + "</div></div></div>";
 	}
 
 	$("#skills").html(skills_result);
