@@ -96,5 +96,6 @@ decorations = [
 	{"level":3,"skills":[{"id":"115","level":1}]}, 
 	{"level":2,"skills":[{"id":"116","level":1}]}, 
 	{"level":3,"skills":[{"id":"117","level":1}]}, 
-	{"level":2,"skills":[{"id":"127","level":1}]}
+	{"level":2,"skills":[{"id":"127","level":1}]}, 
+	{"level":2,"skills":[{"id":"18","level":1}]}
 ];
