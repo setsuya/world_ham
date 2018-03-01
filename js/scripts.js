@@ -34,7 +34,7 @@ function toggleMenu(){
 		$("#title_bar").animate({"width": "-=" + $("#menu").outerWidth()});
 		$("#menu").toggleClass("menu_show");
 	}else{
-		$("#title_bar").animate({"width": "+=" + $("#menu").outerWidth()});
+		$("#title_bar").animate({"width": "100%"});
 		$("#menu").animate({"right": "100%"});
 		$("#menu").toggleClass("menu_show");
 	}
@@ -117,6 +117,11 @@ function parseSet(custom_set_string, set_id){
 		$(".armor_slot:eq(" + cont + ") option[data-id='" + custom_set[i] + "']")[0].selected = true;
 	}
 
+	if($("#menu").hasClass("menu_show")){
+		$("#title_bar").css({"width": ($(window).width() - $("#menu").outerWidth())});
+		$("#menu").css({"right": ($(window).width() - $("#menu").outerWidth())});
+	}
+
 	buildSet();
 }
 
@@ -124,18 +129,35 @@ function loadSkills(){
 	all_skills = "<option>--- Search skills ---</option>";
 
 	for(item in skills){
-		all_skills += "<option data-id=\"" + item + "\">" + skills[item].name + "</option>";
+		if(skills[item].name != "DUMMY"){
+			all_skills += "<option data-id=\"" + item + "\">" + skills[item].name + "</option>";
+		}
 	}
 
 	$("#armor_search > select").html(all_skills);
 }
 
 function loadPieces(){
+	low_rank_head = "";
+	high_rank_head = "";
 	head_pieces = "";
+
+	low_rank_chest = "";
+	high_rank_chest = "";
 	chest_pieces = "";
+
+	low_rank_arms = "";
+	high_rank_arms = "";
 	arms_pieces = "";
+
+	low_rank_waist = "";
+	high_rank_waist = "";
 	waist_pieces = "";
+
+	low_rank_legs = "";
+	high_rank_legs = "";
 	legs_pieces = "";
+
 	charm_pieces = "<option data-id=\"ff\">-----</option>";
 
 	for(piece in armor){
@@ -148,6 +170,11 @@ function loadPieces(){
 
 				piece_skills_list = "";
 				piece_slots_list = "";
+				piece_set_skills_list = "";
+
+				if(armor[piece].set_bonus_id){
+					piece_set_skills_list = " data-set-skills=\"" + armor[piece].set_bonus_id + "\"";
+				}
 
 				for(skill in piece_skills){
 					piece_skills_list += "[" + piece_skills[skill].id + "," + piece_skills[skill].level + "],";
@@ -165,7 +192,11 @@ function loadPieces(){
 					piece_slots_list = "[" + piece_slots_list + "]";
 				}
 
-				head_pieces += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\">" + armor[piece].name + "</option>";
+				if(armor[piece].rank == "low"){
+					low_rank_head += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\"" + piece_set_skills_list + ">" + armor[piece].name + "</option>";
+				}else{
+					high_rank_head += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\"" + piece_set_skills_list + ">" + armor[piece].name + "</option>";
+				}
 
 				break;
 			case("chest"):
@@ -174,6 +205,11 @@ function loadPieces(){
 
 				piece_skills_list = "";
 				piece_slots_list = "";
+				piece_set_skills_list = "";
+
+				if(armor[piece].set_bonus_id){
+					piece_set_skills_list = " data-set-skills=\"" + armor[piece].set_bonus_id + "\"";
+				}
 
 				for(skill in piece_skills){
 					piece_skills_list += "[" + piece_skills[skill].id + "," + piece_skills[skill].level + "],";
@@ -191,7 +227,11 @@ function loadPieces(){
 					piece_slots_list = "[" + piece_slots_list + "]";
 				}
 
-				chest_pieces += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\">" + armor[piece].name + "</option>";
+				if(armor[piece].rank == "low"){
+					low_rank_chest += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\"" + piece_set_skills_list + ">" + armor[piece].name + "</option>";
+				}else{
+					high_rank_chest += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\"" + piece_set_skills_list + ">" + armor[piece].name + "</option>";
+				}
 
 				break;
 			case("arms"):
@@ -200,6 +240,11 @@ function loadPieces(){
 
 				piece_skills_list = "";
 				piece_slots_list = "";
+				piece_set_skills_list = "";
+
+				if(armor[piece].set_bonus_id){
+					piece_set_skills_list = " data-set-skills=\"" + armor[piece].set_bonus_id + "\"";
+				}
 
 				for(skill in piece_skills){
 					piece_skills_list += "[" + piece_skills[skill].id + "," + piece_skills[skill].level + "],";
@@ -217,7 +262,11 @@ function loadPieces(){
 					piece_slots_list = "[" + piece_slots_list + "]";
 				}
 
-				arms_pieces += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\">" + armor[piece].name + "</option>";
+				if(armor[piece].rank == "low"){
+					low_rank_arms += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\"" + piece_set_skills_list + ">" + armor[piece].name + "</option>";
+				}else{
+					high_rank_arms += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\"" + piece_set_skills_list + ">" + armor[piece].name + "</option>";
+				}
 
 				break;
 			case("waist"):
@@ -226,6 +275,11 @@ function loadPieces(){
 
 				piece_skills_list = "";
 				piece_slots_list = "";
+				piece_set_skills_list = "";
+
+				if(armor[piece].set_bonus_id){
+					piece_set_skills_list = " data-set-skills=\"" + armor[piece].set_bonus_id + "\"";
+				}
 
 				for(skill in piece_skills){
 					piece_skills_list += "[" + piece_skills[skill].id + "," + piece_skills[skill].level + "],";
@@ -243,7 +297,11 @@ function loadPieces(){
 					piece_slots_list = "[" + piece_slots_list + "]";
 				}
 
-				waist_pieces += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\">" + armor[piece].name + "</option>";
+				if(armor[piece].rank == "low"){
+					low_rank_waist += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\"" + piece_set_skills_list + ">" + armor[piece].name + "</option>";
+				}else{
+					high_rank_waist += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\"" + piece_set_skills_list + ">" + armor[piece].name + "</option>";
+				}
 
 				break;
 			case("legs"):
@@ -252,6 +310,11 @@ function loadPieces(){
 
 				piece_skills_list = "";
 				piece_slots_list = "";
+				piece_set_skills_list = "";
+
+				if(armor[piece].set_bonus_id){
+					piece_set_skills_list = " data-set-skills=\"" + armor[piece].set_bonus_id + "\"";
+				}
 
 				for(skill in piece_skills){
 					piece_skills_list += "[" + piece_skills[skill].id + "," + piece_skills[skill].level + "],";
@@ -269,7 +332,11 @@ function loadPieces(){
 					piece_slots_list = "[" + piece_slots_list + "]";
 				}
 
-				legs_pieces += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\">" + armor[piece].name + "</option>";
+				if(armor[piece].rank == "low"){
+					low_rank_legs += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\"" + piece_set_skills_list + ">" + armor[piece].name + "</option>";
+				}else{
+					high_rank_legs += "<option data-id=\"" + piece + "\" data-skills=\"" + piece_skills_list + "\" data-slots=\"" + piece_slots_list + "\"" + piece_set_skills_list + ">" + armor[piece].name + "</option>";
+				}
 
 				break;
 		}
@@ -298,6 +365,12 @@ function loadPieces(){
 	deco_pieces[1] = "<optgroup label=\"Level 1\">" + deco_pieces[1] + "</optgroup>";
 	deco_pieces[2] = "<optgroup label=\"Level 2\">" + deco_pieces[2] + "</optgroup>";
 	deco_pieces[3] = "<optgroup label=\"Level 3\">" + deco_pieces[3] + "</optgroup>";
+
+	head_pieces = "<optgroup label=\"Low Rank\">" + low_rank_head + "</optgroup><optgroup label=\"High Rank\">" + high_rank_head + "</optgroup>";
+	chest_pieces = "<optgroup label=\"Low Rank\">" + low_rank_chest + "</optgroup><optgroup label=\"High Rank\">" + high_rank_chest + "</optgroup>";
+	arms_pieces = "<optgroup label=\"Low Rank\">" + low_rank_arms + "</optgroup><optgroup label=\"High Rank\">" + high_rank_arms + "</optgroup>";
+	waist_pieces = "<optgroup label=\"Low Rank\">" + low_rank_waist + "</optgroup><optgroup label=\"High Rank\">" + high_rank_waist + "</optgroup>";
+	legs_pieces = "<optgroup label=\"Low Rank\">" + low_rank_legs + "</optgroup><optgroup label=\"High Rank\">" + high_rank_legs + "</optgroup>";
 
 	$("#head_list").html(head_pieces);
 	$("#chest_list").html(chest_pieces);
@@ -380,125 +453,95 @@ function addFromSearch(){
 	}
 }
 
-/*function buildSet(){
-	set_skills = [];
-	final_skills = {};
-	armor_list = [];
-
-	armor_list.push($("#weapon_list > select:eq(0) > option:selected").attr("data-id"));
-	armor_list.push($("#weapon_list > select:eq(1) > option:selected").attr("data-id"));
-	armor_list.push($("#weapon_list > select:eq(2) > option:selected").attr("data-id"));
-	armor_list.push($("#head_list > option:selected").attr("data-id"));
-	armor_list.push($("#chest_list > option:selected").attr("data-id"));
-	armor_list.push($("#arms_list > option:selected").attr("data-id"));
-	armor_list.push($("#waist_list > option:selected").attr("data-id"));
-	armor_list.push($("#legs_list > option:selected").attr("data-id"));
-	armor_list.push($("#charm_list > option:selected").attr("data-id"));
-
-	if($("#head_list > option:selected").attr("data-skills")){
-		set_skills.push(JSON.parse("[" + $("#head_list > option:selected").attr("data-skills") + "]"));
-	}
-
-	if($("#chest_list > option:selected").attr("data-skills")){
-		set_skills.push(JSON.parse("[" + $("#chest_list > option:selected").attr("data-skills") + "]"));
-	}
-
-	if($("#arms_list > option:selected").attr("data-skills")){
-		set_skills.push(JSON.parse("[" + $("#arms_list > option:selected").attr("data-skills") + "]"));
-	}
-
-	if($("#waist_list > option:selected").attr("data-skills")){
-		set_skills.push(JSON.parse("[" + $("#waist_list > option:selected").attr("data-skills") + "]"));
-	}
-
-	if($("#legs_list > option:selected").attr("data-skills")){
-		set_skills.push(JSON.parse("[" + $("#legs_list > option:selected").attr("data-skills") + "]"));
-	}
-
-	if($("#charm_list > option:selected").attr("data-skills")){
-		set_skills.push(JSON.parse("[" + $("#charm_list > option:selected").attr("data-skills") + "]"));
-	}
-
-	$(".armor_slot").each(function(){
-		if($(this).find("option:selected").attr("data-skills")){
-			set_skills.push(JSON.parse("[" + $(this).find("option:selected").attr("data-skills") + "]"));
-		}
-
-		armor_list.push($(this).find("option:selected").attr("data-id"));
-	});
-
-	for(item in set_skills){
-		one_piece = set_skills[item];
-
-		for(skill_item in one_piece){
-			if(final_skills[one_piece[skill_item][0]]){
-				final_skills[one_piece[skill_item][0]] += one_piece[skill_item][1];
-			}else{
-				final_skills[one_piece[skill_item][0]] = one_piece[skill_item][1];
-			}
-		}
-	}
-
-	createSkillList(final_skills);
-	$("#share_btn").attr("data-clipboard-text", (window.location.origin + window.location.pathname) + "?" + btoa(armor_list));
-	new Clipboard("#share_btn");
-}
-
-function createSkillList(skill_list){
-	skills_result = "";
-
-	for(skill in skill_list){
-		skill_level = "";
-
-		for(i = 0; i < skill_list[skill]; i++){
-			if(i < skills[skill].max_level){
-				skill_level += "<span class=\"skill_lvl selected_lvl\"></span>";
-			}
-		}
-
-		for(i = 0; i < (skills[skill].max_level - skill_list[skill]); i++){
-			skill_level += "<span class=\"skill_lvl\"></span>";
-		}
-
-		skills_result += "<div class=\"row py-1\"><div class=\"skill_item col\"><div class=\"row px-2 py-1 text-light\">" + skills[skill].name + "</div><div class=\"row px-2 pt-0 pb-1\">" + skill_level + "</div></div></div>";
-	}
-
-	$("#skills").html(skills_result);
-}*/
-
 function buildSet(){
 	set_skills = [];
 	final_skills = {};
+	final_bonus_skills = {};
 	armor_list = [];
 
 	armor_list.push($("#weapon_list > select:eq(0) > option:selected").attr("data-id"));
 	armor_list.push($("#weapon_list > select:eq(1) > option:selected").attr("data-id"));
 	armor_list.push($("#weapon_list > select:eq(2) > option:selected").attr("data-id"));
-	armor_list.push($("#head_list > option:selected").attr("data-id"));
-	armor_list.push($("#chest_list > option:selected").attr("data-id"));
-	armor_list.push($("#arms_list > option:selected").attr("data-id"));
-	armor_list.push($("#waist_list > option:selected").attr("data-id"));
-	armor_list.push($("#legs_list > option:selected").attr("data-id"));
+	armor_list.push($("#head_list option:selected").attr("data-id"));
+	armor_list.push($("#chest_list option:selected").attr("data-id"));
+	armor_list.push($("#arms_list option:selected").attr("data-id"));
+	armor_list.push($("#waist_list option:selected").attr("data-id"));
+	armor_list.push($("#legs_list option:selected").attr("data-id"));
 	armor_list.push($("#charm_list > option:selected").attr("data-id"));
 
-	if($("#head_list > option:selected").attr("data-skills")){
-		set_skills.push(JSON.parse("[" + $("#head_list > option:selected").attr("data-skills") + ",\"head\"]"));
+	if($("#head_list option:selected").attr("data-skills")){
+		set_skills.push(JSON.parse("[" + $("#head_list option:selected").attr("data-skills") + ",\"head\"]"));
+		
+		if($("#head_list option:selected").attr("data-set-skills")){
+			set_id = $("#head_list option:selected").attr("data-set-skills");
+
+			if(final_bonus_skills[set_id]){
+				final_bonus_skills[set_id].head = 1;
+				final_bonus_skills[set_id].total += 1;
+			}else{
+				final_bonus_skills[set_id] = {"head": 1, "chest": 0, "arms": 0, "waist": 0, "legs": 0, "total": 1};
+			}
+		}
 	}
 
-	if($("#chest_list > option:selected").attr("data-skills")){
-		set_skills.push(JSON.parse("[" + $("#chest_list > option:selected").attr("data-skills") + ",\"chest\"]"));
+	if($("#chest_list option:selected").attr("data-skills")){
+		set_skills.push(JSON.parse("[" + $("#chest_list option:selected").attr("data-skills") + ",\"chest\"]"));
+
+		if($("#chest_list option:selected").attr("data-set-skills")){
+			set_id = $("#chest_list option:selected").attr("data-set-skills");
+
+			if(final_bonus_skills[set_id]){
+				final_bonus_skills[set_id].chest = 1;
+				final_bonus_skills[set_id].total += 1;
+			}else{
+				final_bonus_skills[set_id] = {"head": 0, "chest": 1, "arms": 0, "waist": 0, "legs": 0, "total": 1};
+			}
+		}
 	}
 
-	if($("#arms_list > option:selected").attr("data-skills")){
-		set_skills.push(JSON.parse("[" + $("#arms_list > option:selected").attr("data-skills") + ",\"arms\"]"));
+	if($("#arms_list option:selected").attr("data-skills")){
+		set_skills.push(JSON.parse("[" + $("#arms_list option:selected").attr("data-skills") + ",\"arms\"]"));
+
+		if($("#arms_list option:selected").attr("data-set-skills")){
+			set_id = $("#arms_list option:selected").attr("data-set-skills");
+
+			if(final_bonus_skills[set_id]){
+				final_bonus_skills[set_id].arms = 1;
+				final_bonus_skills[set_id].total += 1;
+			}else{
+				final_bonus_skills[set_id] = {"head": 0, "chest": 0, "arms": 1, "waist": 0, "legs": 0, "total": 1};
+			}
+		}
 	}
 
-	if($("#waist_list > option:selected").attr("data-skills")){
-		set_skills.push(JSON.parse("[" + $("#waist_list > option:selected").attr("data-skills") + ",\"waist\"]"));
+	if($("#waist_list option:selected").attr("data-skills")){
+		set_skills.push(JSON.parse("[" + $("#waist_list option:selected").attr("data-skills") + ",\"waist\"]"));
+
+		if($("#waist_list option:selected").attr("data-set-skills")){
+			set_id = $("#waist_list option:selected").attr("data-set-skills");
+
+			if(final_bonus_skills[set_id]){
+				final_bonus_skills[set_id].waist = 1;
+				final_bonus_skills[set_id].total += 1;
+			}else{
+				final_bonus_skills[set_id] = {"head": 0, "chest": 0, "arms": 0, "waist": 1, "legs": 0, "total": 1};
+			}
+		}
 	}
 
-	if($("#legs_list > option:selected").attr("data-skills")){
-		set_skills.push(JSON.parse("[" + $("#legs_list > option:selected").attr("data-skills") + ",\"legs\"]"));
+	if($("#legs_list option:selected").attr("data-skills")){
+		set_skills.push(JSON.parse("[" + $("#legs_list option:selected").attr("data-skills") + ",\"legs\"]"));
+
+		if($("#legs_list option:selected").attr("data-set-skills")){
+			set_id = $("#legs_list option:selected").attr("data-set-skills");
+
+			if(final_bonus_skills[set_id]){
+				final_bonus_skills[set_id].legs = 1;
+				final_bonus_skills[set_id].total += 1;
+			}else{
+				final_bonus_skills[set_id] = {"head": 0, "chest": 0, "arms": 0, "waist": 0, "legs": 1, "total": 1};
+			}
+		}
 	}
 
 	if($("#charm_list > option:selected").attr("data-skills")){
@@ -529,13 +572,36 @@ function buildSet(){
 		}
 	}
 
-	createSkillList(final_skills);
+	createSkillList(final_skills, final_bonus_skills);
 	$("#share_btn").attr("data-clipboard-text", (window.location.origin + window.location.pathname) + "?" + btoa(armor_list));
 	new Clipboard("#share_btn");
 }
 
-function createSkillList(skill_list){
+function createSkillList(skill_list, set_skill_list){
 	skills_result = "";
+
+	for(skill in set_skill_list){
+		total_points = set_skill_list[skill].total;
+
+		for(item in set_bonus[skill].skills){
+			bonus_skill = set_bonus[skill].skills[item];
+			skill_points = "";
+
+			for(part in set_skill_list[skill]){
+				if(part != "total"){
+					if(set_skill_list[skill][part] > 0){
+						skill_points += "<img src=\"img/" + part + ".png\" class=\"armor_icon mx-1\" />";
+					}else{
+						skill_points += "<img src=\"img/" + part + "_off.png\" class=\"armor_icon mx-1\" />";
+					}
+				}
+			}
+
+			if(total_points >= bonus_skill.level){
+				skills_result += "<div class=\"row py-1\"><div class=\"skill_item col\"><div class=\"row px-2 py-1 text-light\"><span class=\"text-warning font-weight-bold mr-1\">" + bonus_skill.level + "</span>" + skills[bonus_skill.id].name + "</div><div class=\"row\"><div class=\"col\"><hr class=\"bg-light mt-1 mb-2\" /></div></div><div id=\"armor_levels\" class=\"row px-2 pt-0 pb-1 align-items-center justify-content-center text-warning\">" + skill_points + "</div></div></div>";
+			}
+		}
+	}
 
 	for(skill in skill_list){
 		skill_level = "";
