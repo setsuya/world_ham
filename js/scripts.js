@@ -6,6 +6,7 @@ $(document).ready(function(){
 	if(location.search){
 		parseSet((location.search).substr(1));
 	}else{
+		newSet();
 		buildSet();
 	}
 
@@ -135,6 +136,9 @@ function loadSkills(){
 	}
 
 	$("#armor_search > select").html(all_skills);
+	tinysort($("#armor_search > select option"));
+	$("#armor_search option:eq(0)")[0].selected = true;
+	$("#armor_search option:eq(0)").trigger("change");
 }
 
 function loadPieces(){
@@ -359,7 +363,9 @@ function loadPieces(){
 	for(piece in decorations){
 		deco_item = decorations[piece];
 
-		deco_pieces[deco_item.level] = deco_pieces[deco_item.level] + "<option data-id=\"" + deco_item.skills[0].id + "\" data-skills=\"[" + deco_item.skills[0].id + "," + deco_item.skills[0].level + "]\">" + skills[deco_item.skills[0].id].name + " Jewel</option>";
+		if(deco_item.name != "DUMMY"){
+			deco_pieces[deco_item.level] = deco_pieces[deco_item.level] + "<option data-id=\"" + deco_item.skills[0].id + "\" data-skills=\"[" + deco_item.skills[0].id + "," + deco_item.skills[0].level + "]\">" + decorations[piece].name + " (" + skills[deco_item.skills[0].id].name + ")</option>";
+		}
 	}
 
 	deco_pieces[1] = "<optgroup label=\"Level 1\">" + deco_pieces[1] + "</optgroup>";
@@ -373,11 +379,27 @@ function loadPieces(){
 	legs_pieces = "<optgroup label=\"Low Rank\">" + low_rank_legs + "</optgroup><optgroup label=\"High Rank\">" + high_rank_legs + "</optgroup>";
 
 	$("#head_list").html(head_pieces);
+	tinysort($("#head_list optgroup:eq(0) option"));
+	tinysort($("#head_list optgroup:eq(1) option"));
+
 	$("#chest_list").html(chest_pieces);
+	tinysort($("#chest_list optgroup:eq(0) option"));
+	tinysort($("#chest_list optgroup:eq(1) option"));
+
 	$("#arms_list").html(arms_pieces);
+	tinysort($("#arms_list optgroup:eq(0) option"));
+	tinysort($("#arms_list optgroup:eq(1) option"));
+
 	$("#waist_list").html(waist_pieces);
+	tinysort($("#waist_list optgroup:eq(0) option"));
+	tinysort($("#waist_list optgroup:eq(1) option"));
+
 	$("#legs_list").html(legs_pieces);
+	tinysort($("#legs_list optgroup:eq(0) option"));
+	tinysort($("#legs_list optgroup:eq(1) option"));
+
 	$("#charm_list").html(charm_pieces);
+	tinysort($("#charm_list option"));
 }
 
 function checkSlots(armor_piece){
@@ -410,6 +432,10 @@ function checkSlots(armor_piece){
 			$(armor_piece).parent().next(".slot_list").html("");
 		}
 	}
+
+	$(".armor_slot optgroup").each(function(){
+		tinysort($(this).find("option"));
+	});
 
 	buildSet();
 }
@@ -598,7 +624,7 @@ function createSkillList(skill_list, set_skill_list){
 			}
 
 			if(total_points >= bonus_skill.level){
-				skills_result += "<div class=\"row py-1\"><div class=\"skill_item col\"><div class=\"row px-2 py-1 text-light\"><span class=\"text-warning font-weight-bold mr-1\">" + bonus_skill.level + "</span>" + skills[bonus_skill.id].name + "</div><div class=\"row\"><div class=\"col\"><hr class=\"bg-light mt-1 mb-2\" /></div></div><div id=\"armor_levels\" class=\"row px-2 pt-0 pb-1 align-items-center justify-content-center text-warning\">" + skill_points + "</div></div></div>";
+				skills_result += "<div class=\"row py-1\"><div class=\"skill_item col\"><div class=\"row px-2 py-1 text-light\"><span class=\"text-warning font-weight-bold mr-1\">" + bonus_skill.level + "</span>" + skills[bonus_skill.id].name + "</div><div class=\"row\"><div class=\"col\"><hr class=\"bg-light mt-1 mb-2\" /></div></div><div class=\"armor_levels row px-2 pt-0 pb-1 align-items-center justify-content-center text-warning\">" + skill_points + "</div></div></div>";
 			}
 		}
 	}
@@ -625,7 +651,7 @@ function createSkillList(skill_list, set_skill_list){
 			}
 		}
 
-		skills_result += "<div class=\"row py-1\"><div class=\"skill_item col\"><div class=\"row px-2 py-1 text-light\">" + skills[skill].name + "</div><div class=\"row px-2 pt-0 pb-1\">" + skill_level + "</div><div class=\"row\"><div class=\"col\"><hr class=\"bg-light mt-1 mb-2\" /></div></div><div id=\"armor_levels\" class=\"row px-2 pt-0 pb-1 align-items-center justify-content-end text-warning\">" + skill_points + "</div></div></div>";
+		skills_result += "<div class=\"row py-1\"><div class=\"skill_item col\"><div class=\"row px-2 py-1 text-light\">" + skills[skill].name + "</div><div class=\"row px-2 pt-0 pb-1\">" + skill_level + "</div><div class=\"row\"><div class=\"col\"><hr class=\"bg-light mt-1 mb-2\" /></div></div><div class=\"armor_levels row px-2 pt-0 pb-1 align-items-center justify-content-end text-warning\">" + skill_points + "</div></div></div>";
 	}
 
 	$("#skills").html(skills_result);
