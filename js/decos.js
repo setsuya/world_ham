@@ -1,7 +1,7 @@
 decorations = [
 	{"name":"Slider Jewel 2","level":2,"skills":[{"id":"0","level":1}]}, 
 	{"name":"Challenger Jewel 2","level":2,"skills":[{"id":"1","level":1}]}, 
-	{"name":"Flight Jewel 1","level":2,"skills":[{"id":"2","level":1}]}, 
+	{"name":"Flight Jewel 2","level":2,"skills":[{"id":"2","level":1}]}, 
 	{"name":"Mirewalker Jewel 1","level":1,"skills":[{"id":"3","level":1}]}, 
 	{"name":"Artillery Jewel 1","level":1,"skills":[{"id":"4","level":1}]}, 
 	{"name":"Attack Jewel 1","level":1,"skills":[{"id":"5","level":1}]}, 
@@ -58,7 +58,7 @@ decorations = [
 	{"name":"Venom Jewel 1","level":1,"skills":[{"id":"73","level":1}]}, 
 	{"name":"Antidote Jewel 1","level":1,"skills":[{"id":"74","level":1}]}, 
 	{"name":"Enhancer Jewel 2","level":2,"skills":[{"id":"75","level":1}]}, 
-	{"name":"Sheath Jewel 2","level":1,"skills":[{"id":"77","level":1}]}, 
+	{"name":"Sheath Jewel 1","level":1,"skills":[{"id":"77","level":1}]}, 
 	{"name":"Recovery Jewel 1","level":1,"skills":[{"id":"78","level":1}]}, 
 	{"name":"Medicine Jewel 1","level":1,"skills":[{"id":"79","level":1}]}, 
 	{"name":"Furor Jewel 2","level":2,"skills":[{"id":"80","level":1}]}, 
