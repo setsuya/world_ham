@@ -627,5 +627,6 @@ armor = [
 	{"name":"Commission Vambraces β","part":"arms","rank":"high","slots":["2","0","0"],"skills":[{"id":"11","level":1}],"set_bonus_id":"3"}, 
 	{"name":"Commission Belt β","part":"waist","rank":"high","slots":["2","0","0"],"skills":[{"id":"65","level":1}],"set_bonus_id":"3"}, 
 	{"name":"Commission Pants β","part":"legs","rank":"high","slots":["2","0","0"],"skills":[{"id":"97","level":2}],"set_bonus_id":"3"}, 
-	{"name":"Sealed Eyepatch α","part":"head","rank":"high","slots":["2","1","0"],"skills":[{"id":"34","level":1}]}
+	{"name":"Sealed Eyepatch α","part":"head","rank":"high","slots":["2","1","0"],"skills":[{"id":"34","level":1}]}, 
+	{"name":"Wiggler Head α","part":"head","rank":"high","slots":["1","1","0"],"skills":[{"id":"106","level":2}]}
 ];
