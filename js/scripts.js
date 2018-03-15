@@ -28,6 +28,119 @@ deco_pieces[1] = "";
 deco_pieces[2] = "";
 deco_pieces[3] = "";
 armor_list = [];
+backup_id = "";
+
+function handleClientLoad(){
+	gapi.load("client:auth2", initClient);
+}
+
+function initClient(){
+	gapi.client.init({
+		apiKey: "AIzaSyBMocTTVj1H-5eSzgNhgGqjZtpmKYAcvJY", 
+		clientId: "679422822157-1783k4d9t57dlq846caln9771hfgq2fc.apps.googleusercontent.com", 
+		scope: "https://www.googleapis.com/auth/drive.appdata"
+	}).then(function(){
+		gapi.client.load("drive", "v3").then(function(){searchBackup();});
+		gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+		updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+	});
+}
+
+function updateSigninStatus(isSignedIn) {
+	if(isSignedIn){
+		$("#drive_options").html("<div class=\"btn-group btn-block\"><input type=\"button\" id=\"drive_backup\" class=\"btn btn-warning btn-sm w-50\" value=\"Backup\" onclick=\"uploadSets()\" style=\"border-right: 1px solid #935e00;\" /><input type=\"button\" id=\"drive_restore\" class=\"btn btn-warning btn-sm w-50\" value=\"Restore\" onclick=\"downloadSets()\" style=\"border-left: 1px solid #b37e00;\" /></div><input type=\"button\" id=\"drive_login\" class=\"btn btn-info btn-sm btn-block\" value=\"Google Drive Logout\" onclick=\"driveSignOut()\" />");
+
+		if(backup_id == ""){
+			$("#drive_restore").prop("disabled", true);
+		}
+	}else{
+		$("#drive_options").html("<input type=\"button\" id=\"drive_login\" class=\"btn btn-info btn-sm btn-block\" value=\"Google Drive Login\" onclick=\"driveSignIn()\" />");
+	}
+}
+
+function driveSignIn(){
+	gapi.auth2.getAuthInstance().signIn();
+}
+
+function driveSignOut(){
+	gapi.auth2.getAuthInstance().signOut().then(function(){
+		gapi.auth2.getAuthInstance().disconnect();
+		gapi.auth2.getAuthInstance().currentUser.get().reloadAuthResponse();
+	});
+}
+
+function searchBackup(){
+	if(gapi.auth2.getAuthInstance().isSignedIn.get()){
+		request = gapi.client.drive.files.list({
+			"q": "name='armor_sets.json'", 
+			"spaces": "appDataFolder"
+		});
+
+		request.execute(function(data){
+			if(data.files.length > 0){
+				backup_id = data.files[0].id;
+			}
+
+			updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+		});
+	}else{
+		updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+	}
+}
+
+function uploadSets(){
+	if(backup_id != ""){
+		upload_type = "PATCH";
+		upload_uri = "/" + backup_id;
+
+		fileMetadata = {
+			"name": "armor_sets.json", 
+			"mimeType": "application/json"
+		};
+	}else{
+		upload_type = "POST";
+		upload_uri = "";
+
+		fileMetadata = {
+			"name": "armor_sets.json", 
+			"parents": ["appDataFolder"], 
+			"mimeType": "application/json"
+		};
+	}
+
+	data = new FormData();
+	data.append("metadata", new Blob([JSON.stringify(fileMetadata)], {type: "application/json" }));
+	data.append("file", new Blob([JSON.stringify(localStorage.getItem("armor_sets"))], {type: "application/json"}));
+
+	token = gapi.auth.getToken();
+
+	$.ajax("https://www.googleapis.com/upload/drive/v3/files" + upload_uri + "?uploadType=multipart", {
+		"data": data,
+		"headers": {Authorization: "Bearer " + token.access_token},
+		"contentType": false,
+		"processData": false,
+		"type": upload_type,
+		"success": function(data) {
+			backup_id = data.id;
+			$("#drive_restore").prop("disabled", false);
+		}, 
+		"error": function(data){
+			console.log(data);
+		}
+	});
+}
+
+function downloadSets(){
+	if(backup_id != ""){
+		gapi.client.drive.files.get({
+			"fileId": backup_id, 
+			"alt": "media"
+		}).then(function(data){
+			localStorage.armor_sets = data.result;
+			savedSets();
+		});
+	}
+}
 
 function toggleMenu(){
 	if(!$("#menu").hasClass("menu_show")){
