@@ -123,6 +123,7 @@ function uploadSets(){
 		"success": function(data) {
 			backup_id = data.id;
 			$("#drive_restore").prop("disabled", false);
+			showToast("Backup successful.");
 		}, 
 		"error": function(data){
 			console.log(data);
@@ -138,8 +139,14 @@ function downloadSets(){
 		}).then(function(data){
 			localStorage.armor_sets = data.result;
 			savedSets();
+			showToast("Backup restored.");
 		});
 	}
+}
+
+function showToast(msg){
+	$("#toast_msg").text(msg);
+	$("#toast").fadeIn().delay(2000).fadeOut("slow");
 }
 
 function toggleMenu(){

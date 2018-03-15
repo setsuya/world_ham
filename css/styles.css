@@ -6,6 +6,16 @@
 	z-index: 10000;
 }
 
+#toast {
+	display: none;
+	z-index: 10000;
+	bottom: 20px;
+}
+
+#toast_msg {
+	box-shadow: 1px 1px 2px #333;
+}
+
 #overlay p:nth-of-type(1) {
 	font-size: 72px;
 	line-height: 1;
