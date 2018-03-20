@@ -204,6 +204,9 @@ function parseSet(custom_set_string, set_id){
 		
 		save_obj = JSON.parse(localStorage.getItem("armor_sets"));
 		$("#set_name").val(save_obj[set_id].name);
+	}else{
+		$("#set_name").val("");
+		$("#save_id").val("");
 	}
 
 	$("#weapon_list > select:eq(0) option[data-id='" + custom_set[0] + "']")[0].selected = true;
@@ -802,6 +805,7 @@ function saveSet(){
 		localStorage.armor_sets = JSON.stringify(save_obj);
 	}
 
+	showToast("Set saved.")
 	savedSets();
 }
 
@@ -810,7 +814,8 @@ function deleteSet(save_id){
 	delete save_obj[save_id];
 
 	localStorage.armor_sets = JSON.stringify(save_obj);
-	
+
+	showToast("Set deleted.")
 	savedSets();
 }
 
