@@ -628,5 +628,15 @@ armor = [
 	{"name":"Commission Belt β","part":"waist","rank":"high","slots":["2","0","0"],"skills":[{"id":"65","level":1}],"set_bonus_id":"3"}, 
 	{"name":"Commission Pants β","part":"legs","rank":"high","slots":["2","0","0"],"skills":[{"id":"97","level":2}],"set_bonus_id":"3"}, 
 	{"name":"Sealed Eyepatch α","part":"head","rank":"high","slots":["2","1","0"],"skills":[{"id":"34","level":1}]}, 
-	{"name":"Wiggler Head α","part":"head","rank":"high","slots":["1","1","0"],"skills":[{"id":"106","level":2}]}
+	{"name":"Wiggler Head α","part":"head","rank":"high","slots":["1","1","0"],"skills":[{"id":"106","level":2}]}, 
+	{"name":"Vangis Helm α","part":"head","rank":"high","slots":["1","0","0"],"skills":[{"id":"70","level":1},{"id":"43","level":1}]}, 
+	{"name":"Vangis Mail α","part":"chest","rank":"high","slots":["2","0","0"],"skills":[{"id":"91","level":1},{"id":"43","level":1}]}, 
+	{"name":"Vangis Vambraces α","part":"arms","rank":"high","slots":["0","0","0"],"skills":[{"id":"57","level":2},{"id":"70","level":1}]}, 
+	{"name":"Vangis Coil α","part":"waist","rank":"high","slots":["1","0","0"],"skills":[{"id":"57","level":1},{"id":"43","level":1}]}, 
+	{"name":"Vangis Greaves α","part":"legs","rank":"high","slots":["0","0","0"],"skills":[{"id":"91","level":2},{"id":"70","level":1}]}, 
+	{"name":"Vangis Helm β","part":"head","rank":"high","slots":["3","1","0"],"skills":[{"id":"70","level":1}]}, 
+	{"name":"Vangis Mail β","part":"chest","rank":"high","slots":["3","0","0"],"skills":[{"id":"91","level":1}]}, 
+	{"name":"Vangis Vambraces β","part":"arms","rank":"high","slots":["2","0","0"],"skills":[{"id":"57","level":2}]}, 
+	{"name":"Vangis Coil β","part":"waist","rank":"high","slots":["3","1","0"],"skills":[{"id":"57","level":1}]}, 
+	{"name":"Vangis Greaves β","part":"legs","rank":"high","slots":["1","1","0"],"skills":[{"id":"91","level":2}]}
 ];
