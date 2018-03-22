@@ -638,5 +638,6 @@ armor = [
 	{"name":"Vangis Mail β","part":"chest","rank":"high","slots":["3","0","0"],"skills":[{"id":"91","level":1}]}, 
 	{"name":"Vangis Vambraces β","part":"arms","rank":"high","slots":["2","0","0"],"skills":[{"id":"57","level":2}]}, 
 	{"name":"Vangis Coil β","part":"waist","rank":"high","slots":["3","1","0"],"skills":[{"id":"57","level":1}]}, 
-	{"name":"Vangis Greaves β","part":"legs","rank":"high","slots":["1","1","0"],"skills":[{"id":"91","level":2}]}
+	{"name":"Vangis Greaves β","part":"legs","rank":"high","slots":["1","1","0"],"skills":[{"id":"91","level":2}]}, 
+	{"name":"Shadow Shades α","part":"head","rank":"high","slots":["1","1","1"],"skills":[{"id":"98","level":1}]}
 ];
