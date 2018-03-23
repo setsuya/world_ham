@@ -567,24 +567,43 @@ function searchArmor(){
 	if($("#armor_search > select option:selected").attr("data-id")){
 		search_id = $("#armor_search > select option:selected").attr("data-id");
 		search_pieces = [];
+		search_points = [];
+		pieces_result = {"head": "", "chest": "", "arms": "", "waist": "", "legs": ""};
 		search_result = "";
 
 		for(item in armor){
 			for(skill in armor[item].skills){
 				if(armor[item].skills[skill].id == search_id){
 					search_pieces.push(item);
+					search_points.push(armor[item].skills[skill].level);
 					break;
 				}
 			}
 		}
 
 		for(item in search_pieces){
-			search_result += "<option data-id=\"" + search_pieces[item] + "\">" + armor[search_pieces[item]].name + "</option>"
+			pieces_result[armor[search_pieces[item]].part] = pieces_result[armor[search_pieces[item]].part] + "<option data-id=\"" + search_pieces[item] + "\">" + armor[search_pieces[item]].name + " (" + search_points[item] + "pt.)</option>";
 		}
+
+		for(part in pieces_result){
+			if(pieces_result[part] == ""){
+				pieces_result[part] = "<option>--- No results. ---</option>";
+			}
+		}
+
+		search_result = "<optgroup label=\"Head Armor\">" + pieces_result.head + "</optgroup><optgroup label=\"Chest Armor\">" + pieces_result.chest + "</optgroup><optgroup label=\"Arms Armor\">" + pieces_result.arms + "</optgroup><optgroup label=\"Waist Armor\">" + pieces_result.waist + "</optgroup><optgroup label=\"Legs Armor\">" + pieces_result.legs + "</optgroup>";
 
 		if(search_result != ""){
 			search_result = "<select class=\"form-control form-control-sm col-10\"><option>--- " + search_pieces.length + " results found. ---</option>" + search_result + "</select><div class=\"input-group-append col-2 p-0\"><div class=\"btn btn-info btn-sm btn-block px-3\" role=\"button\" onclick=\"addFromSearch()\"><div>&plus;</div></div></div>";
 			$("#search_results").html(search_result).addClass("pt-2");
+
+			tinysort($("#search_results optgroup:eq(0) option"));
+			tinysort($("#search_results optgroup:eq(1) option"));
+			tinysort($("#search_results optgroup:eq(2) option"));
+			tinysort($("#search_results optgroup:eq(3) option"));
+			tinysort($("#search_results optgroup:eq(4) option"));
+			$("#search_results option")[0].selected = true;
+			$("#search_results option").trigger("change");
 		}else{
 			search_result = "<select class=\"form-control form-control-sm col-10\"><option>--- No results found. ---</option></select><div class=\"input-group-append col-2 p-0\"><div class=\"btn btn-info btn-sm btn-block disabled px-3\" role=\"button\"><div>&plus;</div></div></div>";
 			$("#search_results").html(search_result).addClass("pt-2");
