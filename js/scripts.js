@@ -29,6 +29,7 @@ deco_pieces[2] = "";
 deco_pieces[3] = "";
 armor_list = [];
 backup_id = "";
+promises = [];
 
 function handleClientLoad(){
 	gapi.load("client:auth2", initClient);
@@ -246,7 +247,7 @@ function parseSet(custom_set_string, set_id){
 		$("#menu").css({"right": ($(window).width() - $("#menu").outerWidth())});
 	}
 
-	buildSet();
+	//buildSet();
 }
 
 function loadSkills(){
@@ -741,6 +742,7 @@ function buildSet(){
 	}
 
 	createSkillList(final_skills, final_bonus_skills);
+	createSetInfo();
 	$("#share_btn").attr("data-clipboard-text", (window.location.origin + window.location.pathname) + "?" + btoa(armor_list));
 	new Clipboard("#share_btn");
 }
@@ -797,6 +799,84 @@ function createSkillList(skill_list, set_skill_list){
 	}
 
 	$("#skills").html(skills_result);
+}
+
+function createSetInfo(){
+	armor_pieces = [armor[$("#head_list option:selected").attr("data-id")], armor[$("#chest_list option:selected").attr("data-id")], armor[$("#arms_list option:selected").attr("data-id")], armor[$("#waist_list option:selected").attr("data-id")], armor[$("#legs_list option:selected").attr("data-id")]];
+	final_info = {
+		"defense": 0, 
+		"resist_ice": [0, "text-light"], 
+		"resist_fire": [0, "text-light"], 
+		"resist_thunder": [0, "text-light"], 
+		"resist_water": [0, "text-light"], 
+		"resist_dragon": [0, "text-light"]
+	};
+
+	for(piece in armor_pieces){
+		final_info.defense += armor_pieces[piece].defense;
+
+		final_info.resist_ice[0] += armor_pieces[piece].ice_resist ? armor_pieces[piece].ice_resist : 0;
+		if(final_info.resist_ice[0] != 0){
+			if(final_info.resist_ice[0] > 0){
+				final_info.resist_ice[1] = "text-success";
+			}else{
+				final_info.resist_ice[1] = "text-danger";
+			}
+		}else{
+			final_info.resist_ice[1] = "text-light";
+		}
+
+		final_info.resist_fire[0] += armor_pieces[piece].fire_resist ? armor_pieces[piece].fire_resist : 0;
+		if(final_info.resist_fire[0] != 0){
+			if(final_info.resist_fire[0] > 0){
+				final_info.resist_fire[1] = "text-success";
+			}else{
+				final_info.resist_fire[1] = "text-danger";
+			}
+		}else{
+			final_info.resist_fire[1] = "text-light";
+		}
+
+		final_info.resist_thunder[0] += armor_pieces[piece].thunder_resist ? armor_pieces[piece].thunder_resist : 0;
+		if(final_info.resist_thunder[0] != 0){
+			if(final_info.resist_thunder[0] > 0){
+				final_info.resist_thunder[1] = "text-success";
+			}else{
+				final_info.resist_thunder[1] = "text-danger";
+			}
+		}else{
+			final_info.resist_thunder[1] = "text-light";
+		}
+
+		final_info.resist_water[0] += armor_pieces[piece].water_resist ? armor_pieces[piece].water_resist : 0;
+		if(final_info.resist_water[0] != 0){
+			if(final_info.resist_water[0] > 0){
+				final_info.resist_water[1] = "text-success";
+			}else{
+				final_info.resist_water[1] = "text-danger";
+			}
+		}else{
+			final_info.resist_water[1] = "text-light";
+		}
+
+		final_info.resist_dragon[0] += armor_pieces[piece].dragon_resist ? armor_pieces[piece].dragon_resist : 0;
+		if(final_info.resist_dragon[0] != 0){
+			if(final_info.resist_dragon[0] > 0){
+				final_info.resist_dragon[1] = "text-success";
+			}else{
+				final_info.resist_dragon[1] = "text-danger";
+			}
+		}else{
+			final_info.resist_dragon[1] = "text-light";
+		}
+	}
+
+	$("#element_values > div:eq(0)").text(final_info.defense);
+	$("#element_values > div:eq(1)").removeClass("text-light text-success text-danger").addClass(final_info.resist_fire[1]).text(final_info.resist_fire[0]);
+	$("#element_values > div:eq(2)").removeClass("text-light text-success text-danger").addClass(final_info.resist_water[1]).text(final_info.resist_water[0]);
+	$("#element_values > div:eq(3)").removeClass("text-light text-success text-danger").addClass(final_info.resist_thunder[1]).text(final_info.resist_thunder[0]);
+	$("#element_values > div:eq(4)").removeClass("text-light text-success text-danger").addClass(final_info.resist_ice[1]).text(final_info.resist_ice[0]);
+	$("#element_values > div:eq(5)").removeClass("text-light text-success text-danger").addClass(final_info.resist_dragon[1]).text(final_info.resist_dragon[0]);
 }
 
 function saveSet(){
