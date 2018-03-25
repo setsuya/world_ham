@@ -133,5 +133,6 @@ skills = [
 	{"name": "Punishing Draw", "max_level": 1},
 	{"name": "Razor Sharp/Spare Shot", "max_level": 1},
 	{"name": "Stamina Cap Up", "max_level": 1},
-	{"name": "Super Recovery", "max_level": 1}
+	{"name": "Super Recovery", "max_level": 1}, 
+	{"name": "Great Luck", "max_level": 1}
 ];
