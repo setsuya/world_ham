@@ -805,6 +805,8 @@ function createSetInfo(){
 	armor_pieces = [armor[$("#head_list option:selected").attr("data-id")], armor[$("#chest_list option:selected").attr("data-id")], armor[$("#arms_list option:selected").attr("data-id")], armor[$("#waist_list option:selected").attr("data-id")], armor[$("#legs_list option:selected").attr("data-id")]];
 	final_info = {
 		"defense": 0, 
+		"defense_max": 0, 
+		"defense_augment": 0, 
 		"resist_ice": [0, "text-light"], 
 		"resist_fire": [0, "text-light"], 
 		"resist_thunder": [0, "text-light"], 
@@ -814,6 +816,8 @@ function createSetInfo(){
 
 	for(piece in armor_pieces){
 		final_info.defense += armor_pieces[piece].defense;
+		final_info.defense_max += armor_pieces[piece].defense_max;
+		final_info.defense_augment += armor_pieces[piece].defense_augment;
 
 		final_info.resist_ice[0] += armor_pieces[piece].ice_resist ? armor_pieces[piece].ice_resist : 0;
 		if(final_info.resist_ice[0] != 0){
@@ -871,12 +875,14 @@ function createSetInfo(){
 		}
 	}
 
-	$("#element_values > div:eq(0)").text(final_info.defense);
-	$("#element_values > div:eq(1)").removeClass("text-light text-success text-danger").addClass(final_info.resist_fire[1]).text(final_info.resist_fire[0]);
-	$("#element_values > div:eq(2)").removeClass("text-light text-success text-danger").addClass(final_info.resist_water[1]).text(final_info.resist_water[0]);
-	$("#element_values > div:eq(3)").removeClass("text-light text-success text-danger").addClass(final_info.resist_thunder[1]).text(final_info.resist_thunder[0]);
-	$("#element_values > div:eq(4)").removeClass("text-light text-success text-danger").addClass(final_info.resist_ice[1]).text(final_info.resist_ice[0]);
-	$("#element_values > div:eq(5)").removeClass("text-light text-success text-danger").addClass(final_info.resist_dragon[1]).text(final_info.resist_dragon[0]);
+	$("#def_min").text(final_info.defense);
+	$("#def_max").text(final_info.defense_max);
+	$("#def_aug").text(final_info.defense_augment);
+	$("#element_values > div:eq(0)").removeClass("text-light text-success text-danger").addClass(final_info.resist_fire[1]).text(final_info.resist_fire[0]);
+	$("#element_values > div:eq(1)").removeClass("text-light text-success text-danger").addClass(final_info.resist_water[1]).text(final_info.resist_water[0]);
+	$("#element_values > div:eq(2)").removeClass("text-light text-success text-danger").addClass(final_info.resist_thunder[1]).text(final_info.resist_thunder[0]);
+	$("#element_values > div:eq(3)").removeClass("text-light text-success text-danger").addClass(final_info.resist_ice[1]).text(final_info.resist_ice[0]);
+	$("#element_values > div:eq(4)").removeClass("text-light text-success text-danger").addClass(final_info.resist_dragon[1]).text(final_info.resist_dragon[0]);
 }
 
 function saveSet(){
