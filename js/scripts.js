@@ -247,7 +247,7 @@ function parseSet(custom_set_string, set_id){
 		$("#menu").css({"right": ($(window).width() - $("#menu").outerWidth())});
 	}
 
-	//buildSet();
+	buildSet();
 }
 
 function loadSkills(){
