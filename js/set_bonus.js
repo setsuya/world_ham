@@ -21,5 +21,6 @@ set_bonus = [
 	{"name": "Zorah Magdaros Mastery", "skills": [{"id": "123", "level": 3}]}, 
 	{"name": "Legiana Blessing", "skills": [{"id": "124", "level": 3}]}, 
 	{"name": "Legiana Favor", "skills": [{"id": "124", "level": 2}, {"id": "109", "level": 4}]}, 
-	{"name": "Guild Guidance", "skills": [{"id": "135", "level": 4}]}
+	{"name": "Guild Guidance", "skills": [{"id": "135", "level": 4}]}, 
+	{"name": "Lunastra Favor", "skills": [{"id": "133", "level": 2}, {"id": "112", "level": 4}]}
 ];

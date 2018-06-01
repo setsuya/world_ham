@@ -134,5 +134,6 @@ skills = [
 	{"name": "Razor Sharp/Spare Shot", "max_level": 1},
 	{"name": "Stamina Cap Up", "max_level": 1},
 	{"name": "Super Recovery", "max_level": 1}, 
-	{"name": "Great Luck", "max_level": 1}
+	{"name": "Great Luck", "max_level": 1}, 
+	{"name": "Mantle Duration", "max_level": 3}
 ];
